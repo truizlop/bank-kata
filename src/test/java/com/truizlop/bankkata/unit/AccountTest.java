@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.PrintStream;
+
 import static com.truizlop.bankkata.builder.TransactionBuilder.aTransaction;
 import static org.mockito.Mockito.verify;
 
@@ -67,5 +69,14 @@ public class AccountTest {
                         .onDate(ANY_DATE).build(),
                 700
         );
+    }
+
+    @Test
+    public void shouldPrintStatement(){
+        PrintStream printer = System.out;
+
+        account.printStatement(printer);
+
+        verify(statement).printTo(printer);
     }
 }

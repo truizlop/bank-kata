@@ -20,7 +20,7 @@ public class Account {
     }
 
     public void printStatement(PrintStream printer) {
-
+        statement.printTo(printer);
     }
 
     private void addTransaction(double amount, String date) {
