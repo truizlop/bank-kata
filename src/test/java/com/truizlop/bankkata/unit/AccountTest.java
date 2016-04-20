@@ -36,4 +36,16 @@ public class AccountTest {
                         .onDate(ANY_DATE).build(),
                 ANY_AMOUNT);
     }
+
+    @Test
+    public void shouldAddAWithdrawalTransactionToStatement(){
+        account.withdraw(ANY_AMOUNT, ANY_DATE);
+
+        verify(statement).addLineContaining(
+                aTransaction()
+                        .withAmount(-ANY_AMOUNT)
+                        .onDate(ANY_DATE).build(),
+                -ANY_AMOUNT
+        );
+    }
 }

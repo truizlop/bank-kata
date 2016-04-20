@@ -15,7 +15,7 @@ public class Account {
     }
 
     public void withdraw(double amount, String date) {
-
+        statement.addLineContaining(new Transaction(-amount, date), -amount);
     }
 
     public void printStatement(PrintStream printer) {
