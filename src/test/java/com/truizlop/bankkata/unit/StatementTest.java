@@ -39,4 +39,14 @@ public class StatementTest {
 
         verify(printer).println("01/02/2003 | 1000.00 | - | 1000.00");
     }
+
+    @Test
+    public void shouldPrintWithdrawals(){
+        statement.addLineContaining(
+                aTransaction().withAmount(-500).onDate("01/02/2003").build(), -500
+        );
+        statement.printTo(printer);
+
+        verify(printer).println("01/02/2003 | - | 500.00 | -500.00");
+    }
 }

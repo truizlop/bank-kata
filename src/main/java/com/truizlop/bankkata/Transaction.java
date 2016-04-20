@@ -18,7 +18,11 @@ public class Transaction {
     }
 
     public void printTo(PrintStream printer, double balance) {
-        printer.println(date + SEPARATOR + stringForAmount(amount) + SEPARATOR + EMPTY_VALUE + SEPARATOR + stringForAmount(balance));
+        if(amount >= 0){
+            printer.println(date + SEPARATOR + stringForAmount(amount) + SEPARATOR + EMPTY_VALUE + SEPARATOR + stringForAmount(balance));
+        }else{
+            printer.println(date + SEPARATOR + EMPTY_VALUE + SEPARATOR + stringForAmount(Math.abs(amount)) + SEPARATOR + stringForAmount(balance));
+        }
     }
 
     @Override
@@ -51,6 +55,6 @@ public class Transaction {
     }
 
     private String stringForAmount(double amount){
-        return decimalFormat.format(Math.abs(amount)).replace(",", ".");
+        return decimalFormat.format(amount).replace(",", ".");
     }
 }
