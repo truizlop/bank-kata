@@ -1,6 +1,13 @@
 package com.truizlop.bankkata;
 
+import java.io.PrintStream;
+import java.text.DecimalFormat;
+
 public class Transaction {
+
+    private static final String SEPARATOR = " | ";
+    private static final String EMPTY_VALUE = "-";
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     private final double amount;
     private final String date;
@@ -8,6 +15,10 @@ public class Transaction {
     public Transaction(double amount, String date) {
         this.amount = amount;
         this.date = date;
+    }
+
+    public void printTo(PrintStream printer, double balance) {
+        printer.println(date + SEPARATOR + stringForAmount(amount) + SEPARATOR + EMPTY_VALUE + SEPARATOR + stringForAmount(balance));
     }
 
     @Override
@@ -37,5 +48,9 @@ public class Transaction {
                 "amount=" + amount +
                 ", date='" + date + '\'' +
                 '}';
+    }
+
+    private String stringForAmount(double amount){
+        return decimalFormat.format(Math.abs(amount)).replace(",", ".");
     }
 }

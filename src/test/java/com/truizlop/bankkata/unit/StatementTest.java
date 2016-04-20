@@ -9,6 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.PrintStream;
 
+import static com.truizlop.bankkata.builder.TransactionBuilder.aTransaction;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,5 +28,15 @@ public class StatementTest {
         statement.printTo(printer);
 
         verify(printer).println("date | deposit | withdrawal | balance");
+    }
+
+    @Test
+    public void shouldPrintDeposit(){
+        statement.addLineContaining(
+                aTransaction().withAmount(1000).onDate("01/02/2003").build(), 1000
+        );
+        statement.printTo(printer);
+
+        verify(printer).println("01/02/2003 | 1000.00 | - | 1000.00");
     }
 }
