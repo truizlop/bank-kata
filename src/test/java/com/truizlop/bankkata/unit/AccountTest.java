@@ -48,4 +48,24 @@ public class AccountTest {
                 -ANY_AMOUNT
         );
     }
+
+    @Test
+    public void shouldUpdateBalanceAfterSeveralTransactions(){
+        account.deposit(1000, ANY_DATE);
+        account.withdraw(300, ANY_DATE);
+
+        verify(statement).addLineContaining(
+                aTransaction()
+                        .withAmount(1000)
+                        .onDate(ANY_DATE).build(),
+                1000
+        );
+
+        verify(statement).addLineContaining(
+                aTransaction()
+                        .withAmount(-300)
+                        .onDate(ANY_DATE).build(),
+                700
+        );
+    }
 }
